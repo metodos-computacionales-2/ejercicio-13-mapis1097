@@ -1,11 +1,11 @@
 #include <iostream>
 
 //Se incluyen los metodos que se utilizan en el desarrollo del ejercicio
-float **Producto(float **, float **, int, int, int, int);
-float **Matriz_1(int,int);
-float **Matriz_2(int,int);
-void show(float **, int, int);
-void relleno(float**, int);
+float **Producto(float **Matriz_1, float **Matriz_2, int fB, int fA, int cB, int cA);
+float **Matriz_1(int n, int m);
+float **Matriz_2(int n, int m);
+void show(double M[20][20],int f,int c)
+void relleno(float** Matriz, int n);
 
 // Metodo que ejecuta todo
 int main(int argc, char **argv){
@@ -24,7 +24,11 @@ int main(int argc, char **argv){
     float **Product = Producto(Cauchy, Cauchy_2, 6, 2, 2, 3);
     show(Product, 6, 3);
    
-   
+    std::cout<<"Punto cinco de Nilpotent"<<std::endl;
+    float **C = new float*[N];
+    for(int i=0;i<N;i++){
+        C[i] = new float[N];
+    }
    
     relleno(C,N);
     std::cout<<"Se rellena la matriz"<<"\n";
@@ -36,37 +40,30 @@ int main(int argc, char **argv){
     show(Potencia,N,N);
     for(int i=3;i<10;i++){
         std::cout<<"k="<<i<<"\n";
-        Potencia = Producto(C,C,N,N,N,N);
+        Potencia = Producto(Potencia,C,N,N,N,N);
         show(Potencia,N,N);
     }
-   
-    std::cout<<"Punto cinco de Nilpotent"<<std::endl;
-    float **C = new float*[N];
-    for(int i=0;i<N;i++){
-        C[i] = new float[N];
-    }
-   
 }
 
-void relleno(int N, **float matr){
-    for(int i=0;i<N;i++){
-        for(int j=0;j<N;j++){
-            if( j== N-1){
+void relleno(float** Matriz, int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if( j== n-1){
                 if(i==0){
-                    *(*(matr+i)+j)=1-N;
+                    *(*(Matriz+i)+j)=1-n;
                 }
                 else{
-                    *(*(matr+i)+j)=-N;
+                    *(*(Matriz+i)+j)=-n;
                 }
             }
             else if(i==0){
-                *(*(matr+i)+j)=2;
+                *(*(Matriz+i)+j)=2;
             }
             else if(i==(j+1)){
-                *(*(matr+i)+j)=N+2;
+                *(*(Matriz+i)+j)=n+2;
             }
             else{
-                *(*(matr+i)+j)=1;
+                *(*(Matriz+i)+j)=1;
             }
         }
     }
@@ -116,11 +113,10 @@ float **Matriz_2(int n, int m){
     return M_2;
 }
 
-void show(double Matriz[20][20],int f,int c){
-    cout<<endl;
+void show(double M[20][20],int f,int c){
     for(int i=0;i<f;i++){
         for(int j=0;j<c;j++){
-            cout<<Matriz[i][j]<<"\t";
-        }cout<<endl;
-    }cout<<endl;
+            std::cout<<M[i][j]<<std::endl;
+        }
+    }
 }
